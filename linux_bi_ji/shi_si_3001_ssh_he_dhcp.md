@@ -8,8 +8,11 @@ RPM：openssh, openssh-clients, openssh-server
 服务的启动分类
 运行状态启动：systemctl start service
 开机自启动：systemctl enable service
+```
 
 sshd 服务配置选项
+
+```
 Port
 Protocol
 ListenAddress
@@ -21,6 +24,7 @@ PasswordAuthentication
 PubkeyAuthentication
 AuthorizedKeysFile
 Banner
+
 应用配置
 systemctl restart sshd
 
@@ -49,14 +53,19 @@ ssh-copy-id [ -i ~/.ssh/id_rsa.pub ] [user@]host
 
 scp远程文件传输测试
 rsync远程文件传输测试
-
 ```
 
 基于SSH做文件的上传和下载（windows交互） yum install lrzsz rz+回车，表示是上传本地文件到Linux服务器 sz+文件路径+回车，表示是下载Linux服务器文件到本地
 
 格式转换： yum install dos2unix 如果将文件从Linux服务器下载到windows中，可以使用dos2unix转换文件格式 如果将文件从windows上传到Linux服务器中，可以使用unix2dos转换文件格式
 
-DHCP yum install dhcp -y DHCP配置文件 /etc/dhcp/dhcpd.conf
+## DHCP 
+
+```
+yum install dhcp -y 
+```
+
+DHCP配置文件`/etc/dhcp/dhcpd.conf`
 
 ```
 subnet网段声明
@@ -66,11 +75,32 @@ option routers  设置客户机默认网关地址
 host主机声明
 hareware ethernet   指定主机MAC地址
 fixed-address   为该主机保留的ip地址
-启动DHCP
-systemctl start dhcpd   查看端口号验证
-
 ```
 
-subnet 10.0.0.0 netmask 255.255.255.0 { range 10.0.0.100 10.0.0.200; option domain-name-servers a.simple.com; option domain-name &quot;simple.com&quot;; option routers 10.0.0.254; option broadcast-address 10.0.0.255; default-lease-time 6000; max-lease-time 72000; } host boss { hardware ethernet 00:1C:42:84:C0:C1; fixed-address 10.0.0.123; }
+启动DHCP
 
-客户端获取IP 方法1： 在网卡配置文件中设定为获取方式为dhcp，然后重启网络服务 方法2： 客户端执行dhclient -d eth0获取ip
+```
+systemctl start dhcpd   查看端口号验证
+```
+
+```
+subnet 10.0.0.0 netmask 255.255.255.0 {
+range 10.0.0.100 10.0.0.200; 
+option domain-name-servers a.simple.com; 
+option domain-name "simple.com"; 
+option routers 10.0.0.254; 
+option broadcast-address 10.0.0.255; 
+default-lease-time 6000; max-lease-time 72000; 
+} 
+host boss { 
+hardware ethernet 00:1C:42:84:C0:C1; 
+fixed-address 10.0.0.123; 
+}
+```
+
+客户端获取IP 
+
+方法1： 在网卡配置文件中设定为获取方式为dhcp，然后重启网络服务 
+
+方法2： 客户端执行dhclient -d eth0获取ip
+
