@@ -1,7 +1,8 @@
 ## 十二、常规优化
 
-```
 帐号安全基本措施
+
+```
 [root@localhost ~]# vi /etc/profile
 HISTSIZE=200
 HISTFILESIZE=100
@@ -29,14 +30,11 @@ export TMOUT=600
 ----i-------- /etc/passwd
 ----i-------- /etc/shadow
 -----a------- /var/log/messages
-
-
 ```
 
-
+启用pam\_wheel认证模块
 
 ```
-启用pam_wheel认证模块
 将允许使用su命令的用户加入wheel组
 [root@localhost ~]# vi /etc/pam.d/su 
 #%PAM-1.0
