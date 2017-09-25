@@ -173,7 +173,7 @@ nmcli dev con eth0 = nmcli con up team0-port1 （开启网卡链接）
 
 ### 日志管理 {#-1}
 
-查看journald运行状态的方式：systemctl status systemd-journald
+查看`journald`运行状态的方式：`systemctl status systemd-journald`
 
 #### 日志保存位置
 
