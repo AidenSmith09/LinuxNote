@@ -153,15 +153,15 @@ netstat -lntup | grep :67  查看端口号
 ```
 subnet 10.0.0.0 netmask 255.255.255.0 {          //设置网段
 range 10.0.0.100 10.0.0.200;                     //限制地址范围
-option domain-name-servers a.simple.com;         //设置DNS服务器地址
-option domain-name "simple.com";                 //DNS 域
-option routers 10.0.0.254; 
-option broadcast-address 10.0.0.255; 
-default-lease-time 6000; max-lease-time 72000; 
+option domain-name-servers a.simple.com;         //dns 地址
+option domain-name "simple.com";                 //域名
+option routers 10.0.0.254;                       //
+option broadcast-address 10.0.0.255;             //
+default-lease-time 6000; max-lease-time 72000;   //
 } 
 host boss { 
-hardware ethernet 00:1C:42:84:C0:C1; 
-fixed-address 10.0.0.123; 
+hardware ethernet 00:1C:42:84:C0:C1;             //
+fixed-address 10.0.0.123;                        //
 }
 ```
 
