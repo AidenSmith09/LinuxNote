@@ -2,7 +2,7 @@
 
 ### SElinux基本说明
 
-selinux类型: Enforcing, Permissive, or Disabled
+selinux类型: Enforcing, Permissive, or Disabled
 
 * Enforcing：既阻止用户的违规行为，同时对违规行为作日志记录
 * Permissive：不对违规行为作阻止，只记录日志
@@ -51,8 +51,6 @@ selinux=0|1，如果设置为0时，开机后getenforce获取的状态为disable
 enforcing=0|1，如果设置为0时，开机后getenforce获取的状态为permissive
 ```
 
-
-
 每个文件和进程都有上下文，查看的指令为：
 
 ls -lZ 文件或目录（-d）
@@ -62,8 +60,6 @@ ps auxZ \| less
 SElinux的用户类型分为三种：超级用户，系统用户，普通用户
 
 文件或目录的SElinux权限控制主要设置的是第三列字段，type类型
-
-
 
 修改文件标签的方法：
 
@@ -83,29 +79,31 @@ restorecon -Rv /srv/www
 
 -R表示递归式还原，-v表示显示还原标签的变化信息
 
-
-
 布尔值：
 
 主要是通过应用规则，保护服务器的文件目录不被破坏
 
-        获取布尔值的方法：
+```
+    获取布尔值的方法：
 
-        getsebool -a
+    getsebool -a
+```
 
 可以通过grep过滤需要设置的服务关键词，对布尔值作修改
 
-	修改布尔值的方法：
+```
+修改布尔值的方法：
 
-	setsebool \[-P\] httpd\_enable\_cgi off/on
+setsebool \[-P\] httpd\_enable\_cgi off/on
 
-	-P表示规则永久生效，不加-P时，规则在不重启的情况下生效
+-P表示规则永久生效，不加-P时，规则在不重启的情况下生效
+```
 
 端口SElinux标签查看方法：
 
-	semanage port -l
-
-
+```
+semanage port -l
+```
 
 SElinux日志机制：
 
@@ -116,18 +114,6 @@ SElinux相关的日志存放在/var/log/audit/audit.log文件中
 如果SElinux的监听服务没有开启，则日志机制会被rsyslog代理监听
 
 SElinux相关的日志会被存放在/var/log/messages文件中
-
-
-
-
-
-
-
-
-
-
-
-
 
 iptables netfilter 位于Linux内核中的包过滤功能体系，基于内核控制，实现防火墙的相关策略
 
@@ -175,11 +161,9 @@ iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]
 * REJECT：拒绝通过，必要时会给出提示 
 * LOG：记录日志信息，然后传给下一条规则继续匹配
 
-
-
 #### 启用iptables的方法
 
-首先需要安装iptables的服务包 `yum install iptables-services` 
+首先需要安装iptables的服务包 `yum install iptables-services`
 
 因为RHEL7默认使用防火墙工具为firewalld
 
