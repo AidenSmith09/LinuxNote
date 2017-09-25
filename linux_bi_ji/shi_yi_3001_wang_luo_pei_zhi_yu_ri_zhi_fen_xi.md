@@ -4,33 +4,36 @@
 
 ```
 ifconfig            //查看所有活动网络接口信息
-ifconfig 网络接口名  //查看指定网络接口信息
+ifconfig 网络接口名   //查看指定网络接口信息
 ip address          //添加 IP地址
 nmcli device show   //查看所有设备信息
-hostname               //查看主机名
+hostname            //查看主机名
 
 设置主机名通常使用三种方式：
-1\. hostnamectl set-hostname 主机名
-2\. vim /etc/hostname
-3\. nmtui
+1.hostnamectl set-hostname 主机名
+2.vim /etc/hostname
+3.nmtui
 
 route                //查看路由表
     route -n
     ip route
 
-netstat        //查看接口统计信息等
+netstat              //查看接口统计信息等
     -l\-n\-t\-u\-p
-    netstat -lntup 查看所有端口信息
-    netstat -lntup | grep ：端口 只查看指定端口的信息
+    netstat -lntup   //查看所有端口信息
+    netstat -lntup | grep ：端口  //只查看指定端口的信息
 
 ping        //测试网络连通性
 
-traceroute  测试主机到主机之间经过的网络节点
+traceroute  //测试主机到主机之间经过的网络节点
 
-nslookup    测试DNS域名解析
-    nslookup 主机名／ip
+nslookup    //测试DNS域名解析
+nslookup 主机名／ip
+```
 
-Linux网络接口表示方法
+### Linux网络接口表示方法
+
+```
 eth0 eth表示以太网卡0表示第一块网卡
 lo0 表示本地回环网卡
 
@@ -47,26 +50,39 @@ Ifconfig eth0:0 ip地址
 
 删除路由表中默认网关记录
 route del default gw IP地址
+
 添加默认网关记录
 route add default gw IP地址
+
 添加指定网段的路由记录
+
 route add -net 网段地址 gw IP地址
 删除指定网段路由记录
 route del -net 网段地址
+```
 
-第一块网卡的配置文件
-/etc/sysconfig/network-scripts/ifcfg-eth0
-网卡配置文件中的重要内容
+#### 第一块网卡的配置文件
+
+网卡配置文件路径：`vim /etc/sysconfig/network-scripts/ifcfg-eth0`
+
+```
 DEVICE=eth0
 ONBOOT=yes|no
 BOOTPROTO=static|none|dhcp
-IPADDR=
+IPADDR= 
 NETMASK=    或者  prefix=掩码位
 GATEWAY=
+```
+
 网络服务重启使配置生效
+
+```
 service network restart
+```
 
 修改网卡名称为默认的eth设备
+
+```
 1.vim /etc/default/grub
     GRUB_CMDLINE_LINUX，在双引号中，参数的末尾追加net.ifnames=0 biosdevname=0
 2.grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -80,13 +96,10 @@ service network restart
 
 ### RHEL7网卡配置
 
-nmcli con show                    //查看所有网卡的链接信息
-
-nmcli con show "eth0"         //查看指定网卡链路信息
-
-nmcli dev status                  //查看所有网卡的物理链路状态
-
-nmcli dev show eth0           //查看指定网卡的物理链路状态
+* nmcli con show                    //查看所有网卡的链接信息
+* nmcli con show eth0         //查看指定网卡链路信息
+* nmcli dev status                  //查看所有网卡的物理链路状态
+* nmcli dev show eth0           //查看指定网卡的物理链路状态
 
 ```bash
 添加新的网卡链接
@@ -180,27 +193,27 @@ nmcli dev con eth0 = nmcli con up team0-port1 （开启网卡链接）
 
 
 journalctl
-	空格可以向下翻页，小写字母q表示退出当前日志的查看
+    空格可以向下翻页，小写字母q表示退出当前日志的查看
 journalctl -n 10
-	表示查看journald记录日志的后十行
+    表示查看journald记录日志的后十行
 journalctl -p err
-	表示查看对应消息级别的相关日志
+    表示查看对应消息级别的相关日志
 journalctl -f
-	表示实时监听系统日志
+    表示实时监听系统日志
 tail -f /var/log/messages（/var/log/secure）
-	表示实时监听messages文件的日志变化
+    表示实时监听messages文件的日志变化
 ```
 
 #### 日志消息的级别
 
-* 0  EMERG（紧急）： 	会导致主机系统不可用的情况
-* 1  ALERT（警告）：	        必须马上采取措施解决的问题
-* 2  CRIT（严重）：		比较严重的情况
-* 3  ERR（错误）：		运行出现错误
-* 4  WARNING（提醒）：	可能会影响系统功能的事件
-* 5  NOTICE（注意）：	        不会影响系统但值得注意
-* 6  INFO（信息）：	        一般信息
-* 7  DEBUG（调试）：	        程序或系统调试信息等
+* 0  EMERG（紧急）：     会导致主机系统不可用的情况
+* 1  ALERT（警告）：            必须马上采取措施解决的问题
+* 2  CRIT（严重）：        比较严重的情况
+* 3  ERR（错误）：        运行出现错误
+* 4  WARNING（提醒）：    可能会影响系统功能的事件
+* 5  NOTICE（注意）：            不会影响系统但值得注意
+* 6  INFO（信息）：            一般信息
+* 7  DEBUG（调试）：            程序或系统调试信息等
 
 
 
