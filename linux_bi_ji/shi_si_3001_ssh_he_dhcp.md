@@ -13,17 +13,21 @@ RPM包：openssh, openssh-clients, openssh-server
 sshd 服务配置选项
 
 ```
-Port	                //端口号，默认为TCP的22号端口，修改端口时，取消注释，直接修改，或复制本行后修改
-Protocol ssh	        //安全传输协议，目前默认使用的是第二版协议
-ListenAddress		//监听的地址段
-PermitRootLogin		//是否允许用户在发起ssh请求的时候，以root的身份直连本地主机，yes表示启用，不允许root登陆
-PermitEmptyPasswords	//是否允许空密码登陆
-LoginGraceTime		//ssh登陆时，密码验证的超时时间，默认为2分钟
-MaxAuthTries		//ssh输入密码的最大尝试次数，默认为6次
-PasswordAuthentication	//是否启用密码身份验证
-PubkeyAuthentication	//是否启用公私钥对进行身份认证
-AuthorizedKeysFile	//指定ssh远程连接的公钥存放路径
-Banner			//显示软件版本等相关信息
+Port                    //端口号，默认为TCP的22号端口，修改端口时，取消注释，直接修改，或复制本行后修改
+Protocol ssh            //安全传输协议，目前默认使用的是第二版协议
+ListenAddress        //监听的地址段
+
+PermitRootLogin        //是否允许用户在发起ssh请求的时候，以root的身份直连本地主机，yes表示启用，不允许root登陆
+PermitEmptyPasswords    //是否允许空密码登陆
+
+LoginGraceTime        //ssh登陆时，密码验证的超时时间，默认为2分钟
+MaxAuthTries        //ssh输入密码的最大尝试次数，默认为6次
+
+PasswordAuthentication    //是否启用密码身份验证
+PubkeyAuthentication    //是否启用公私钥对进行身份认证
+
+AuthorizedKeysFile    //指定ssh远程连接的公钥存放路径
+Banner            //显示软件版本等相关信息
 
 应用配置
 systemctl restart sshd
@@ -122,8 +126,6 @@ DNS服务器地址：
 * DHCP server：UDP 67
 * DHCP client：UDP 6
 
-
-
 将模版信息追加到配置文件中
 
 `cat /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example >> /etc/dhcp/dhcpd.conf`
@@ -140,7 +142,7 @@ hareware ethernet     指定主机MAC地址
 fixed-address         为该主机保留的ip地址
 ```
 
-启动DHCP
+**启动DHCP**
 
 ```
 systemctl start dhcpd      启动 dhcp 服务
