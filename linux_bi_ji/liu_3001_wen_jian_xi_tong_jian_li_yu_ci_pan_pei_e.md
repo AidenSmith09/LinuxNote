@@ -5,10 +5,10 @@
 建议按照以下7步操作：
 
 ```
-1\. 添加硬件设备，并且让系统识别新设备
+1. 添加硬件设备，并且让系统识别新设备
 fdisk -l查看识别的新设备
 
-2\. 创建磁盘分区，并识别新分区
+2. 创建磁盘分区，并识别新分区
 fdisk ／dev/sdb
 Command (m for help): 
 m查看帮助信息
@@ -37,18 +37,20 @@ q不保存直接推出
 磁盘创建后，系统无法识别，需要通过partprobe 设备路径，刷新磁盘的分区信息，通知文件系统
 （rhel5，刷新磁盘的指令为partprobe，rhel6，刷新磁盘的指令为partx）
 
-3\. 制作文件系统
+3. 制作文件系统
 mkfs -t ext4 /dev/sdb1
 
-4\. 制作磁盘标签（option）
+4. 制作磁盘标签（option）
 e2label /dev/sdb1  newpart
 查看已制作的磁盘分区信息，可以使用blkid获取
 
-5\. 创建挂载点
+5. 创建挂载点
 mkdir /mnt/newpart
 
 6.写系统启动的分区加载文件
 vim /etc/fstab
+/dev/sdb1  /mnt/newpart  ext4  defaults 0 0
+
 fstab文件分为六个字段
 第一个字段表示待挂载（待使用）的设备路径（/dev/sdb1,LABEL,UUID）
 第二个字段表示设备挂载的本地路径
@@ -56,7 +58,7 @@ fstab文件分为六个字段
 第四个字段表示设备使用的权限控制，defaults表示可读写
 第五个字段表示此设备是否做dump备份
 第六个字段表示此设备加载前是否做磁盘检查
-/dev/sdb1  /mnt/newpart  ext4  defaults 0 0
+
 
 7.挂载并使用磁盘分区 
 mount -a的行为是读取fstab文件，将文件中未挂载的设备挂载上
@@ -68,7 +70,6 @@ df查看磁盘挂载信息，-T选项表示显示磁盘的设备类型，-h表�
 使用光盘永久挂载
 vim /etc/fstab写入
 /dev/sr0    /mnt/cdrom      iso9660  defaults 0 0
-
 ```
 
 ### 修改系统语言的三种方式 {#-1}
@@ -78,7 +79,6 @@ vim /etc/fstab写入
 2.yum install system-config-language ，然后调用指令system-config-language，设置默认的语言格式
 3.编辑文件，/etc/locale.conf，修改为相应的语言格式，英文为LANG=en_US.UTF-8，中文为LANG=zh_CN.UTF-8
 修改后建议立即重启使修改生效
-
 ```
 
 ### 虚拟内存使用 {#-2}
@@ -87,70 +87,67 @@ vim /etc/fstab写入
 
 ### 磁盘配额的创建与使用 {#-3}
 
-1.  挂载的同时需要为文件系统添加支持配额的选项
+1. 挂载的同时需要为文件系统添加支持配额的选项
 
-    ```
-    vim /etc/fstab
-    /dev/sdb1  /mnt/ext4  ext4   defaults,usrquota,grpquota    0 0
-    保存退出后，可以执行mount -o remount /mnt/ext4 
-    (umount /dev/sdb1,mount -a)
-    mount | grep sdb1   发现属性中增加了磁盘配额
+   ```
+   vim /etc/fstab
+   /dev/sdb1  /mnt/ext4  ext4   defaults,usrquota,grpquota    0 0
+   保存退出后，可以执行mount -o remount /mnt/ext4 
+   (umount /dev/sdb1,mount -a)
+   mount | grep sdb1   发现属性中增加了磁盘配额
+   ```
 
-    ```
+2. 在分区中生成配额文件quota.user和quota.group
 
-2.  在分区中生成配额文件quota.user和quota.group
+   ```
+    quotacheck -augcv
+   -a 扫描所有支持配额的分区
+   -u 扫描磁盘计算用户所占用的文件数
+   -g 扫描磁盘计算组所占用的文件数
+   -c 创建配额文件aquota.user和aquota.group
+   -v 显示详细信息
+   ```
 
-    ```
-     quotacheck -augcv
-    -a 扫描所有支持配额的分区
-    -u 扫描磁盘计算用户所占用的文件数
-    -g 扫描磁盘计算组所占用的文件数
-    -c 创建配额文件aquota.user和aquota.group
-    -v 显示详细信息
+3. 为用户建立配额信息 edquota -u user1 编辑用户user1的配额信息
 
-    ```
+   ```
+   Disk quotas for user tom (uid 1001):
+   Filesystem    blocks  soft    hard   inodes    soft     hard
+   /dev/sdb1     0      81920   （80M）  102400  （100M）     0   8   10
 
-3.  为用户建立配额信息 edquota -u user1 编辑用户user1的配额信息
+   blocks表示tom用户在sdb1中已使用的空间大小（默认不做修改，系统自识别）
+   soft表示tom用户在sdb1中创建文件时，空间的警告阈值
+   hard表示tom用户在sdb1中创建文件时，空间的最大使用大小
+   inodes表示tom用户在sdb1中已创建的文件数量
+   soft表示tom用户在sdb1中创建文件时，文件数量的警告阈值
+   hard表示tom用户在sdb1中创建文件时，文件数量的最大限制
+   ```
 
-    ```
-    Disk quotas for user tom (uid 1001):
-    Filesystem    blocks  soft    hard   inodes    soft     hard
-    /dev/sdb1     0      81920   （80M）  102400  （100M）     0   8   10
+4. 开启/关闭配额功能
 
-    blocks表示tom用户在sdb1中已使用的空间大小（默认不做修改，系统自识别）
-    soft表示tom用户在sdb1中创建文件时，空间的警告阈值
-    hard表示tom用户在sdb1中创建文件时，空间的最大使用大小
-    inodes表示tom用户在sdb1中已创建的文件数量
-    soft表示tom用户在sdb1中创建文件时，文件数量的警告阈值
-    hard表示tom用户在sdb1中创建文件时，文件数量的最大限制
+   ```
+   quotaon/quotaoff
+   quotaon -a     //-a 表示开启支持配额功能所有分区
+   ```
 
-    ```
+5. 切换用户，做空间和文件数量的限制测试
 
-4.  开启/关闭配额功能
+   ```
+   空间测试可以使用dd指令
+   dd if=/dev/zero of=tom1 bs=1M count=30
+   文件数量测试可以使用touch指令
+   touch file{1..10}
+   ```
 
-    ```
-    quotaon/quotaoff
-    quotaon -a     //-a 表示开启支持配额功能所有分区
+6. 检测系统中磁盘配额的使用情况
 
-    ```
+   ```
+   按照用户查看的方式
+   quota -u username
 
-5.  切换用户，做空间和文件数量的限制测试
+   按照磁盘分区查看的方式
+   repquota /dev/sdb1
+   ```
 
-    ```
-    空间测试可以使用dd指令
-    dd if=/dev/zero of=tom1 bs=1M count=30
-    文件数量测试可以使用touch指令
-    touch file{1..10}
 
-    ```
 
-6.  检测系统中磁盘配额的使用情况
-
-    ```
-    按照用户查看的方式
-    quota -u username
-
-    按照磁盘分区查看的方式
-    repquota /dev/sdb1
-
-    ```
