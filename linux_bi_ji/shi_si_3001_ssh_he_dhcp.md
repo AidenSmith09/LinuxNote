@@ -123,8 +123,8 @@ yum install dhcp -y
 
 DNS服务器地址：
 
-* DHCP server：UDP 67
-* DHCP client：UDP 6
+* DHCP Server：**UDP 67**
+* DHCP Client：**UDP 6**
 
 将模版信息追加到配置文件中
 
@@ -151,17 +151,20 @@ netstat -lntup | grep :67  查看端口号
 ```
 
 ```
+vim /etc/dhcp/dhcpd.conf                        //可自己填写，可调用模板
+
 subnet 10.0.0.0 netmask 255.255.255.0 {          //设置网段
 range 10.0.0.100 10.0.0.200;                     //限制地址范围
 option domain-name-servers a.simple.com;         //dns 地址
 option domain-name "simple.com";                 //域名
-option routers 10.0.0.254;                       //
-option broadcast-address 10.0.0.255;             //
-default-lease-time 6000; max-lease-time 72000;   //
+option routers 10.0.0.254;                       //网管
+option broadcast-address 10.0.0.255;             //广播地址
+default-lease-time 6000;                         //默认租约时间，单位秒
+max-lease-time 72000;                            //最大租约时间
 } 
 host boss { 
-hardware ethernet 00:1C:42:84:C0:C1;             //
-fixed-address 10.0.0.123;                        //
+hardware ethernet 00:1C:42:84:C0:C1;             //MAC地址
+fixed-address 10.0.0.123;                        //保留IP
 }
 ```
 

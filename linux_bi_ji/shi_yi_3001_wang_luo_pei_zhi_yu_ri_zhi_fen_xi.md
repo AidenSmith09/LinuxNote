@@ -96,15 +96,19 @@ service network restart
 
 ### RHEL7网卡配置
 
-* nmcli con show                    //查看所有网卡的链接信息
+* nmcli con show                  //查看所有网卡的链接信息
 * nmcli con show eth0         //查看指定网卡链路信息
-* nmcli dev status                  //查看所有网卡的物理链路状态
-* nmcli dev show eth0           //查看指定网卡的物理链路状态
+* nmcli dev status                //查看所有网卡的物理链路状态
+* nmcli dev show eth0         //查看指定网卡的物理链路状态
 
 ```bash
 添加新的网卡链接
 nmcli con add con-name “xxxx" ifname eth0 type ethernet ip4 172.25.0.X/24 gw4 172.25.X.254
-con表示针对链接做相关操作，add表示增加一个新的网卡链接，con-name表示网卡的链接名称，ifname表示本地的网卡设备名称，type表示网卡的类型）
+con   表示针对链接做相关操作
+add   表示增加一个新的网卡链接
+con-name 表示网卡的链接名称
+ifname   表示本地的网卡设备名称
+type     表示网卡的类型）
 
 为现有的网卡链接设置DNS地址
 nmcli con modify “xxxx" ipv4.dns 172.25.254.254
