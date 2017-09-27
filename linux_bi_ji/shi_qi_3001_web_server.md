@@ -72,26 +72,14 @@ vim /var/www/html/.htaccess
 1. `vim /etc/httpd/conf/httpd.conf`在文件末尾添加
 
    ```
-   <
-   virtualhost *:80
-   >
-
+   <virtualhost *:80>
        servername www.aidenware.com
        documentroot /var/www/html/ware
-
-   <
-   /virtualhost
-   >
-   <
-   virtualhost *:80
-   >
-
+   </virtualhost>
+   <virtualhost *:80>
        servername www.aidenxue.com
        documentroot /var/www/html/xue
-
-   <
-   /virtualhost
-   >
+   </virtualhost>
    ```
 
 2. 新建文件夹
@@ -131,10 +119,10 @@ vim /var/www/html/.htaccess
 
 vim /etc/httpd/conf/httpd.conf在文件中修改自己的IP和端口
 
-servername[www.simpleware.com](http://www.simpleware.com)  
+   servername[www.aidenware.com](http://www.simpleware.com)  
    documentRoot /var/www/html/ware
 
-servername[www.simplexue.com](http://www.simplexue.com)  
+   servername[www.aidenxue.com](http://www.simplexue.com)  
    documentRoot /var/www/html/xue
 
 同时增加一行信息`Listen 8080`保存后退出，并重启httpd服务
