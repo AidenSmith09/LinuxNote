@@ -1,7 +1,5 @@
 ## 十六、DNS {#dns}
 
-master:
-
 安装yum install bind 其中bind（Berkeley Internet Name Daemon）
 
 * 主要配置文件
