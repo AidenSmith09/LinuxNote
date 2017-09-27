@@ -24,7 +24,7 @@ zone "0.0.10.in-addr.arpa" IN {
 };
 ```
 
-解析数据文件保存在 /var/named/
+解析数据文件保存在` /var/named/`
 
 `Aiden.zone`  正向解析文件
 
