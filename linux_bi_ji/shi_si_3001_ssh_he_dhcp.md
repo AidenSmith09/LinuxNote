@@ -98,10 +98,17 @@ id_rsa  id_rsa.pub
 .pub后缀的文件为公钥，
 私钥保存在本地主机，重要私钥会进行加密
 
+
 公钥需要传递到对端主机，使用指令 ssh-copy-id
 ssh-copy-id id_rsa.pub [user]@host    //host 为 IP 地址。
 或
 ssh-copy-id [ -i ~/.ssh/id_rsa.pub ] [user@]host
+
+若创建新的名称，则需要
+
+ssh-add [私钥]
+ssh-copy-id -i [公钥] [user]@[host/IP]
+
 
 scp远程文件传输测试
 rsync远程文件传输测试
