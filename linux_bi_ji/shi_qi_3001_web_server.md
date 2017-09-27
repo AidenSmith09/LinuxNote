@@ -1,4 +1,4 @@
-#  Web Server {#toc_0}
+# Web Server {#toc_0}
 
 可通过yum源码包安装该软件  
 `yum install httpd`\(yum groupinstall 'web server'\) 组包安装时，会将ssl安全web站点，apache官方文档等安装到系统中，方便配置apache，也可以只安装httpd
@@ -22,8 +22,8 @@ apache站点权限控制：
 * Require all granted
 * Require not ip 10.0.0.16（not ip表示只有这台主机不能访问，not ip为保留字）
 
-如果禁止所有人登陆，则设置为  
-  
+如果禁止所有人登陆，则设置为
+
 \* Require all denied \(denied表示全拒绝\)
 
 如果只允许10.0.0.123的访问，则设置为
@@ -40,26 +40,19 @@ echo This is WebPage &gt; /var/www/html/index.html
 
 apache用户登陆权限控制
 
-1. 新建apache用户数据库，第一次创建文件需要加‘-c’选项，创建出文件，以后加用户可以省略  
-   htpasswd -c /etc/httpd/conf/.htpasswd admin
+1.新建apache用户数据库，第一次创建文件需要加‘-c’选项，创建出文件，以后加用户可以省略  
+htpasswd -c /etc/httpd/conf/.htpasswd admin
 
-2. 增加本地用户验证的权限控制，将访问目录的开关由none修改为AuthConfig
+2.增加本地用户验证的权限控制，将访问目录的开关由none修改为AuthConfig
 
 ```
 vim /etc/httpd/conf/httpd.conf
-
-<
-Directory “/var/www/html”
->
-
+<Directory “/var/www/html”>
     AllowOverride none/AuthConfig
-
-<
-/Directory
->
+</Directory>
 ```
 
-1. 在需要被控制的网站根目录中，创建隐藏文件‘.htaccess’,同时增加用户验证模块
+在需要被控制的网站根目录中，创建隐藏文件‘.htaccess’,同时增加用户验证模块
 
 ```
 vim /var/www/html/.htaccess
@@ -68,7 +61,6 @@ vim /var/www/html/.htaccess
     AuthUserFile /etc/httpd/conf/.htpasswd  用户验证数据库的本地存放路径
     require valid-user          valid-user    表示所有数据库的用户都可以通过验证
     (也可以设置为require user admin，表示只有admin可以通过验证)
-
 ```
 
 1. systemctl restart httpd win7
@@ -102,8 +94,8 @@ vim /var/www/html/.htaccess
    >
    ```
 
-2. 新建文件夹  
-  
+2. 新建文件夹
+
    mkdir -p /var/www/html/{ware,xue}
 
 3. 创建虚拟主机的默认站点  
@@ -122,7 +114,6 @@ vim /var/www/html/.htaccess
        file "aiden.com.zone";
        allow-transfer { 10.0.0.123; };
    };
-
    ```
 
 6. 添加解析文件  
@@ -140,13 +131,11 @@ vim /var/www/html/.htaccess
 
 1. vim /etc/httpd/conf/httpd.conf在文件中修改自己的IP和端口
 
-  
-   servername[www.simpleware.com](http://www.simpleware.com)  
-   documentRoot /var/www/html/ware  
-  
-  
-   servername[www.simplexue.com](http://www.simplexue.com)  
-   documentRoot /var/www/html/xue  
+servername[www.simpleware.com](http://www.simpleware.com)  
+   documentRoot /var/www/html/ware
+
+servername[www.simplexue.com](http://www.simplexue.com)  
+   documentRoot /var/www/html/xue
 
 同时增加一行信息`Listen 8080`保存后退出，并重启httpd服务
 
