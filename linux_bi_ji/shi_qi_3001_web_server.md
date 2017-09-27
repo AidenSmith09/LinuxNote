@@ -129,7 +129,7 @@ vim /var/www/html/.htaccess
 
 ### 基于端口的虚拟主机 {#toc_3}
 
-1. vim /etc/httpd/conf/httpd.conf在文件中修改自己的IP和端口
+vim /etc/httpd/conf/httpd.conf在文件中修改自己的IP和端口
 
 servername[www.simpleware.com](http://www.simpleware.com)  
    documentRoot /var/www/html/ware
