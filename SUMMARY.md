@@ -17,5 +17,5 @@
 * [十四、SSH和DHCP](linux_bi_ji/shi_si_3001_ssh_he_dhcp.md)
 * [十五、网络文件共享协议](linux_bi_ji/shi_wu_3001_wang_luo_wen_jian_gong_xiang_xie_yi.md)
 * [十六、DNS](linux_bi_ji/shi_liu_3001_dns.md)
-* [十七、web server](linux_bi_ji/shi_qi_3001_web_server.md)
+* [十七、Web Server](linux_bi_ji/shi_qi_3001_web_server.md)
 

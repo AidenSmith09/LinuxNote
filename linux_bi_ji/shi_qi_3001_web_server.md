@@ -28,8 +28,6 @@ ErrorLog logs/error_log              错误日志
 CustomLog logs/access_log combined   访问日志
 ```
 
-
-
 主机访问权限控制
 
 仅允许IP：192.168.0.1 访问
@@ -43,39 +41,35 @@ CustomLog logs/access_log combined   访问日志
 * Require not ip 192.168.0.1
 * Require not ip 172.16 192.168.100
 
-
-
 用户验证权限控制
 
 1. 创建认证用户的数据库 htpasswd -c /etc/httpd/conf/.htpasswd 用户名
-2. 启用用户授权配置 **Illegal HTML tag removed :**
+2. 启用用户授权配置
    * AllowOverride AuthConfig
 3. 创建授权文件.htaccess文件
-   * AuthName “ACL Directory” 显示信息
-   * AuthType Basic                    认证类型
+
+   * AuthName “ACL Directory”     显示信息
+   * AuthType Basic                       认证类型
    * AuthUserFile /etc/httpd/conf/.htpasswd 账号文件
    * require valid-user 有效用户可登录
 
 4. 重启服务后验证
 
-基于域名的虚拟主机配置   
-servername [www.simpleedu.com](http://www.simpleedu.com)  
-documentroot /var/www/html/edu  
+基于域名的虚拟主机配置  
+servername [www.aidenedu.com](http://www.simpleedu.com)  
+documentroot /var/www/html/edu
 
-
-servername [www.simpleware.com](http://www.simpleware.com)  
+servername [www.aidenware.com](http://www.simpleware.com)  
 documentroot /var/www/html/ware  
-需要将DNS的解析增加为两个域名，编辑named.conf 
+需要将DNS的解析增加为两个域名，编辑named.conf
 
 同时需要在/var/named/创建另一个域名的解析 测试端根据不同的域名访问站点
 
 基于相同IP不同端口的虚拟主机配置** **  
-servername [www.simpleedu.com](http://www.simpleedu.com)  
+servername [www.aideneedu.com](http://www.simpleedu.com)  
 documentroot /var/www/html/edu
 
-
-
-servername [www.simpleware.com](http://www.simpleware.com)  
+servername [www.aideneware.com](http://www.simpleware.com)  
 documentroot /var/www/html/ware  
 在主配置文件中还需要开启Listen端口监听
 
