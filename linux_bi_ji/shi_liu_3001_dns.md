@@ -14,7 +14,7 @@
 zone "Aiden.com" IN {
         type master;
         file "Aiden.com.zone";          //正向解析文件名
-        allow-transfer {10.0.0.1; };    //DN服务器地址
+        allow-transfer {10.0.0.1; };    //DNS服务器地址
 };
 
 zone "0.0.10.in-addr.arpa" IN {
