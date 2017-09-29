@@ -69,7 +69,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ```
 
-#### grub引导故障 {#grub}
+#### grub引导故障
 
 ```
 故障原因 grub.cfg文件丢失
