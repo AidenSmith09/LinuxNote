@@ -1,4 +1,4 @@
-## 十六、DNS {#dns}
+## 十六、DNS
 
 安装yum install bind 其中bind（Berkeley Internet Name Daemon）
 
