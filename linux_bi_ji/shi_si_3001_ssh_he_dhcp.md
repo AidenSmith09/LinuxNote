@@ -131,7 +131,7 @@ yum install dhcp -y
 DNS服务器地址：
 
 * DHCP Server：**UDP 67**
-* DHCP Client：**UDP 6**
+* DHCP Client：**UDP 68**
 
 将模版信息追加到配置文件中
 

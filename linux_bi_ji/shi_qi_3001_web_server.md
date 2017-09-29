@@ -1,4 +1,4 @@
-# Web Server {#toc_0}
+# Web Server
 
 可通过yum源码包安装该软件  
 `yum install httpd`\(yum groupinstall 'web server'\) 组包安装时，会将ssl安全web站点，apache官方文档等安装到系统中，方便配置apache，也可以只安装httpd
