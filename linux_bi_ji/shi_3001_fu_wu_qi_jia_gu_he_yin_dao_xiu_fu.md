@@ -1,6 +1,6 @@
 ## 十、服务器加固和引导修复
 
-#### 确认当前系统的内核版本 {#-0}
+#### 确认当前系统的内核版本
 
 ```
 查看当前kernel: uname -r
@@ -8,7 +8,7 @@
 
 ```
 
-#### 升级kernel: {#kernel}
+#### 升级kernel: 
 
 ```
 yum update kernel
@@ -18,7 +18,7 @@ yum localinstall kernel-3.10.0-123.1.2.el7.x86_64.rpm
 
 ```
 
-#### 查看已安装kernel版本： {#kernel-0}
+#### 查看已安装kernel版本：
 
 ```
 cat /boot/grub2/grub.cfg | grep -i 'red hat'
@@ -34,7 +34,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ```
 
-#### RHEL7密码破解 {#rhel7}
+#### RHEL7密码破解
 
 ```
 1\. 在kernel引导加载的参数后写入rd.break，按Ctrl+x启动
