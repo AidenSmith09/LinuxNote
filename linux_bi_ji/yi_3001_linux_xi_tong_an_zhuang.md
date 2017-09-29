@@ -1,4 +1,4 @@
-## 一、Linux系统基本命令 {#linux}
+## 一、Linux系统基本命令
 
 查看Linux核心版本
 
