@@ -64,7 +64,7 @@ lvresize -L 200M /dev/myvg/mylv
 
 ```
 
-### 删除LVM {#lvm-1}
+### 删除LVM
 
 ```
 1.修改分区文件，将LVM注释或删除
@@ -98,7 +98,7 @@ ARRAY /dev/md0 UUID=xxxxxxxxxxxxxxxxxxxxxxx
 
 ```
 
-#### RAID5的故障处理 {#raid5}
+#### RAID5的故障处理 
 
 ```
 mdadm --manage /dev/md0 --fail /dev/sdb
@@ -108,7 +108,7 @@ mdadm --manage /dev/md0 --fail /dev/sdb
 
 ```
 
-#### 停用阵列 {#-1}
+#### 停用阵列
 
 ```
 umount /dev/md0 卸载设备
