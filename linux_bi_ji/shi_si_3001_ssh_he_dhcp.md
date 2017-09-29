@@ -1,4 +1,4 @@
-## 十四、SSH和DHCP {#ssh-dhcp}
+## 十四、SSH和DHCP
 
 ```
 RPM包：openssh, openssh-clients, openssh-server
