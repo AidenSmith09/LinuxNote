@@ -1,4 +1,4 @@
-## 十三、selinux和防火墙 {#selinux}
+## 十三、selinux和防火墙
 
 ### SElinux基本说明
 
