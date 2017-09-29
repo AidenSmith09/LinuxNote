@@ -76,9 +76,9 @@ lvresize -L 200M /dev/myvg/mylv
 
 ```
 
-### 磁盘阵列 {#-0}
+### 磁盘阵列
 
-#### 软RAID的建立： {#raid-0}
+#### 软RAID的建立：
 
 ```
 1.利用3块硬盘组建RAID5
