@@ -55,7 +55,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ```
 
-#### grub2引导菜单加密 {#grub2}
+#### grub2引导菜单加密
 
 ```
 通过命令grub2-mkpasswd-pbkdf2生成加密密码（复制生成的字符串）
