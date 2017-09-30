@@ -187,8 +187,7 @@ local_max_rate=0：        //限制最大传输速率（字节/秒）
 
 
 Linux客户端推荐安装lftp  
-yum install lftp ftp
-
+`yum install lftp ftp`
 * lftp IP                  // 表示默认以匿名账户身份访问ftp资源
 * lftp 用户名@IP   // 表示以指定账户身份访问ftp资源
 
