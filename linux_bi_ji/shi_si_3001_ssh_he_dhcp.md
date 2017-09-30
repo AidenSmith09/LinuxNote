@@ -104,8 +104,7 @@ ssh-copy-id id_rsa.pub [user]@host    //host 为 IP 地址。
 或
 ssh-copy-id [ -i ~/.ssh/id_rsa.pub ] [user@]host
 
-若创建新的名称，则需要
-
+若创建新的名称，则需要添加一下私钥，否则公钥就算传输至目标，也无法建立连接。
 ssh-add [私钥]
 ssh-copy-id -i [公钥] [user]@[host/IP]
 
