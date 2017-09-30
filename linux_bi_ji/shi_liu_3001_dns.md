@@ -1,5 +1,6 @@
 ## 十六、DNS
 
+
 安装yum install bind 其中bind（Berkeley Internet Name Daemon）
 
 * 主要配置文件
@@ -37,7 +38,7 @@ $TTL 86400
                                         1W ; expire 
                                         1D ) ; minimum 
 IN NS dns.Aiden.com. 
-www IN A 10.0.0.234
+www IN A 10.0.0.1
 ```
 
 `10.0.0.zone`   反向解析文件
@@ -50,7 +51,7 @@ $TTL 86400 @ IN SOA Aiden.com. root.Aiden.com. (
                                                 1W ; expire 
                                                 1D ) ; minimum 
 IN NS dns.Aiden.com. 
-234 IN PTR www.Aiden.com.
+1 IN PTR www.Aiden.com.
 ```
 
 
