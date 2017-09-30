@@ -56,16 +56,15 @@ vim /etc/httpd/conf/httpd.conf
 
 ```
 vim /var/www/html/.htaccess
-    AuthName “ACL Directory”    用户登陆时的提示框信息
-    AuthType Basic                  用户验证模式，默认设置为basic，也支持MD5等
-    AuthUserFile /etc/httpd/conf/.htpasswd  用户验证数据库的本地存放路径
-    require valid-user          valid-user    表示所有数据库的用户都可以通过验证
+    AuthName “ACL Directory”    #用户登陆时的提示框信息
+    AuthType Basic              #用户验证模式，默认设置为basic，也支持MD5等
+    AuthUserFile /etc/httpd/conf/.htpasswd  #用户验证数据库的本地存放路径
+    require valid-user          #valid-user 表示所有数据库的用户都可以通过验证
     (也可以设置为require user admin，表示只有admin可以通过验证)
 ```
 
-1. systemctl restart httpd win7
-   [www.simpleware.com](http://www.simpleware.com)
-   输入admin和设置密码
+3.systemctl restart httpd 
+ 注意，每一次配置的修改，都需要重启服务。
 
 ### 基于名称的虚拟主机 （虚拟主机开启，默认站点不生效） {#toc_2}
 
@@ -100,7 +99,7 @@ vim /var/www/html/.htaccess
    zone "aidenxue.com" IN {
        type master;
        file "aiden.com.zone";
-       allow-transfer { 10.0.0.123; };
+       allow-transfer { 10.0.0.1; };
    };
    ```
 
@@ -113,25 +112,29 @@ vim /var/www/html/.htaccess
    systemctl restart named
 
 8. windows测试  
-   IE中分别访问：www.simpleware.com和www.simplexue.com
+   IE中分别访问：www.aidenware.com和www.aidenxue.com
 
-### 基于端口的虚拟主机 {#toc_3}
+### 基于端口的虚拟主机
 
-vim /etc/httpd/conf/httpd.conf在文件中修改自己的IP和端口
+`vim /etc/httpd/conf/httpd.conf`在文件中修改自己的IP和端口
+```
+<virtualhost *:80>
+   servername www.aidenware.com
+   documentroot /var/www/html/ware
+</virtualhost>
 
-   servername[www.aidenware.com](http://www.simpleware.com)  
-   documentRoot /var/www/html/ware
-
-   servername[www.aidenxue.com](http://www.simplexue.com)  
-   documentRoot /var/www/html/xue
-
+<virtualhost *:8080>
+   servername www.aidenxue.com
+   documentroot /var/www/html/xue
+</virtualhost>
+```
 同时增加一行信息`Listen 8080`保存后退出，并重启httpd服务
 
 1. 防火墙为非标准端口放行  
    firewall-cmd --add-port=8080/tcp
 
 2. windows测试  
-   IE中分别访问：10.0.0.1 和 10.0.0.1:8080
+   IE中分别访问：www.aidenware 和 www.aidenware:8080
 
 
 
