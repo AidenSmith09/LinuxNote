@@ -4,19 +4,21 @@
 `yum install httpd`\(yum groupinstall 'web server'\) 组包安装时，会将ssl安全web站点，apache官方文档等安装到系统中，方便配置apache，也可以只安装httpd
 
 主配置文件为  
-`/etc/httpd/conf/httpd.conf`  
+>`/etc/httpd/conf/httpd.conf`  
+
 默认主页文件存放目录为  
-`/var/www/html/`  
+>`/var/www/html/`  
+
 日志文件存放路径为  
-`/var/log/httpd/`  
+>/var/log/httpd/`  
+
 监听端口为  
-`80/tcp (http), 443/tcp (https)`
+>`80/tcp (http), 443/tcp (https)`
+
 
 apache站点权限控制：  
 首先，2.4版本的apache配置与2.2版本不同
-
 2.4版本的权限控制，需要配置`requireall`选项
-
 如果所有人都允许，只禁止`10.0.0.164`，则设置为
 
 * Require all granted
@@ -24,7 +26,7 @@ apache站点权限控制：
 
 如果禁止所有人登陆，则设置为
 
-\* Require all denied \(denied表示全拒绝\)
+* Require all denied (denied表示全拒绝)
 
 如果只允许10.0.0.123的访问，则设置为
 
@@ -32,6 +34,8 @@ apache站点权限控制：
 * require ip 10.0.0.123
 
 **注：每修改一次主配置文件，都需要重启服务httpd**
+
+
 
 ### Linux 默认站点 {#toc_1}
 
