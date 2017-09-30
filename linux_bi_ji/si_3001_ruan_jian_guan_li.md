@@ -4,8 +4,7 @@
 
 下载源代码安装包文件
 
-```
-步骤1：tar包解压缩
+>步骤1：tar包解压缩
    用途：解压并释放源代码包到指定的目录/usr/src/
 步骤2：./configure 配置
    用途：设置安装目录、安装模块等选项(/usr/src/httpd-2.4.6/)
@@ -16,29 +15,28 @@
     make uninstall    //卸载
     make clean        //清除之前编译的可执行文件与配置
 
-```
+
 
 举例：
 
-```
-1\. 将已下载的压缩包拷贝到本地，解压缩到指定路径`/usr/src`
+>1. 将已下载的压缩包拷贝到本地，解压缩到指定路径`/usr/src`
         tar xf httpd-2.2.15.tar.gz -C /usr/src/
 
-2\. 在解压目录中找到安装程序configure
+>2. 在解压目录中找到安装程序configure
         配置安装路径，配置安装模块，以及需要加载的功能
         ./configure --help 
         ./configure --prefix=/usr/local/httpd
         安装后会在当前目录下生成Makefile文件
 
-3\. 对源包文件Makefile进行编译转换，转为系统能识别的二进制文件 
+>3. 对源包文件Makefile进行编译转换，转为系统能识别的二进制文件 
         make
-4\. 将生成的二进制文件拷贝到安装目录中
+>4. 将生成的二进制文件拷贝到安装目录中
         make install    //安装
-5\. 测试：进入安装目录`/usr/local/httpd/bin/`执行`./httpd`开启httpd程序
-6\. 可以通过网络监听指令获取程序运行信息
+>5. 测试：进入安装目录`/usr/local/httpd/bin/`执行`./httpd`开启httpd程序
+>6. 可以通过网络监听指令获取程序运行信息
     netstat -lntup | grep :80
 
-```
+
 
 打开firefox，访问127.0.0.1 修改默认主站点信息，可以编辑/usr/local/httpd/htdocs/index.html 修改文件内容后刷新firefox，可看到更新内容
 
@@ -89,8 +87,8 @@ gpgcheck=0/1   //表示安装包的时候，是否基于公私钥对匹配包的
 #### yum命令
 
 ```
-yum clean all      //清空缓存信息
-yum list [包的名称] //列出所有repo能使用的包[特定的rpm包]
+yum clean all          //清空缓存信息
+yum list [包的名称]     //列出所有repo能使用的包[特定的rpm包]
 yum install 包的名称 [-y]  //安装指定的rpm包
 yum remove 包的名称 [-y]   //卸载指定的rpm包
 yum search 关键词         //根据关键词，在已发现的repo源中搜索关键词关联的rpm包
