@@ -8,12 +8,13 @@ ifconfig 网络接口名   //查看指定网络接口信息
 ip address          //添加 IP地址
 nmcli device show   //查看所有设备信息
 hostname            //查看主机名
+```
 
 设置主机名通常使用三种方式：
-1.hostnamectl set-hostname 主机名
-2.vim /etc/hostname
-3.nmtui
-
+1. hostnamectl set-hostname 主机名
+2. vim /etc/hostname
+3. nmtui
+```
 route                //查看路由表
     route -n
     ip route
