@@ -49,32 +49,29 @@ vim /etc/fstab
 
 ### 缩小LVM {#lvm-0}
 
-```
-1.文件系统下线
+
+>1.文件系统下线
 umount /dev/lvm
 
-2.强制检测磁盘是否有损坏
+>2.强制检测磁盘是否有损坏
 e2fsck -f /dev/myvg/mylv
 
-3.通知文件系统新的空间大小
+>3.通知文件系统新的空间大小
 resize2fs  /dev/myvg/mylv  200M
 
-4.缩小LVM
+>4.缩小LVM
 lvresize -L 200M /dev/myvg/mylv
 
-```
 
 ### 删除LVM
 
-```
-1.修改分区文件，将LVM注释或删除
-2.下线文件系统
-3.lvremove
-4.vgremove
-5.pvremove
-6.fdisk （d）
+1. 修改分区文件，将LVM注释或删除
+2. 下线文件系统
+3. lvremove
+4. vgremove
+5. pvremove
+6. fdisk （d）
 
-```
 
 ### 磁盘阵列
 
