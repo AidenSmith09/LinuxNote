@@ -56,8 +56,8 @@ route del default gw IP地址
 route add default gw IP地址
 
 添加指定网段的路由记录
-
 route add -net 网段地址 gw IP地址
+
 删除指定网段路由记录
 route del -net 网段地址
 ```
@@ -199,12 +199,16 @@ nmcli dev con eth0 = nmcli con up team0-port1 （开启网卡链接）
 
 journalctl
     空格可以向下翻页，小写字母q表示退出当前日志的查看
+    
 journalctl -n 10
     表示查看journald记录日志的后十行
+
 journalctl -p err
     表示查看对应消息级别的相关日志
+
 journalctl -f
     表示实时监听系统日志
+
 tail -f /var/log/messages（/var/log/secure）
     表示实时监听messages文件的日志变化
 ```
