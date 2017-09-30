@@ -41,8 +41,8 @@ export TMOUT=600
 auth        sufficient  pam_rootok.so
 auth        required    pam_wheel.so use_uid
 
-[root@localhost ~]# usermod -G simple wheel
-将用户“simple”加入到“wheel”组中
+[root@localhost ~]# usermod -G Aiden wheel
+将用户“Aiden”加入到“wheel”组中
 
 visudo 或者 vi  /etc/sudoers
 记录格式：用户    主机名列表=命令程序列表
