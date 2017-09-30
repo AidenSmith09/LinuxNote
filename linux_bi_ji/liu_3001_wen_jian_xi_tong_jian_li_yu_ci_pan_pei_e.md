@@ -4,70 +4,74 @@
 
 建议按照以下7步操作：
 
-```
-1. 添加硬件设备，并且让系统识别新设备
+
+1.添加硬件设备，并且让系统识别新设备
 fdisk -l查看识别的新设备
 
-2. 创建磁盘分区，并识别新分区
-fdisk ／dev/sdb
-Command (m for help): 
-m查看帮助信息
-n创建新的磁盘分区
-   Partition type:
+2.创建磁盘分区，并识别新分区,以下是整体执行过程。
+    
+    fdisk ／dev/sdb     #执行命令 sdb 可根据实际盘符更改
+    Command (m for help):n        #输入“m”查看帮助信息 输入“n”创建新的磁盘分区
+    Partition type:               #默认为 P 主分区
     p   primary (0 primary, 0 extended, 4 free)
     e   extended
-    Select (default p)                      //p 主分区，e 扩展分区
+    Select (default p)                      #p 主分区，e 扩展分区
     Using default response p
-    Partition number (1-4, default 1):      //分区数
-    First sector (2048-20971519, default 2048):   //分区编号
+    Partition number (1-4, default 1):      #分区号：默认4个主分区
+    First sector (2048-20971519, default 2048):   #上一个扇区结束位置，因新磁盘默认
     Using default value 2048
-    Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519): 
+    Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519):   #大小
     Using default value 20971519
     Partition 1 of type Linux and of size 10 GiB is set
-d删除指定的磁盘分区
-p查看已创建磁盘分区的信息
-w保存分区设置并推出
+    Command (m for help):w
     The partition table has been altered!
     Calling ioctl() to re-read partition table.
     Syncing disks.
+ 
+d删除指定的磁盘分区
+p查看已创建磁盘分区的信息
+w保存分区设置并推出
 q不保存直接推出
 
-如果磁盘是第一次创建分区，fdisk划分磁盘分区之后，系统会自动更新磁盘分区变化
-如果磁盘不是第一次创建分区，fdisk划分磁盘分区之后，需要执行partprobe ／dev／sdb强制刷新磁盘信息
+如果磁盘是**首次创建分区**，fdisk划分磁盘分区之后，系统会**自动更新磁盘分区变化**
+如果磁盘不是第一次创建分区，fdisk划分磁盘分区之后，需要执行`partprobe /dev/sdb`强制刷新磁盘信息
 磁盘创建后，系统无法识别，需要通过partprobe 设备路径，刷新磁盘的分区信息，通知文件系统
-（rhel5，刷新磁盘的指令为partprobe，rhel6，刷新磁盘的指令为partx）
+（rhel5，刷新磁盘的指令为`partprobe`，rhel6，刷新磁盘的指令为`partx`）
 
-3. 制作文件系统
-mkfs -t ext4 /dev/sdb1
+3.制作文件系统
+`mkfs -t ext4 /dev/sdb1`
 
-4. 制作磁盘标签（option）
-e2label /dev/sdb1  newpart
+4.制作磁盘标签（option）
+`e2label /dev/sdb1  newpart`
 查看已制作的磁盘分区信息，可以使用blkid获取
 
-5. 创建挂载点
-mkdir /mnt/newpart
+5.创建挂载点
+`mkdir /mnt/newpart`
 
 6.写系统启动的分区加载文件
+```
 vim /etc/fstab
 /dev/sdb1  /mnt/newpart  ext4  defaults 0 0
+```
 
 fstab文件分为六个字段
-第一个字段表示待挂载（待使用）的设备路径（/dev/sdb1,LABEL,UUID）
-第二个字段表示设备挂载的本地路径
-第三个字段表示设备的类型
-第四个字段表示设备使用的权限控制，defaults表示可读写
-第五个字段表示此设备是否做dump备份
-第六个字段表示此设备加载前是否做磁盘检查
+* 第一个字段表示待挂载（待使用）的设备路径（/dev/sdb1,LABEL,UUID）
+* 第二个字段表示设备挂载的本地路径
+* 第三个字段表示设备的类型
+* 第四个字段表示设备使用的权限控制，defaults表示可读写
+* 第五个字段表示此设备是否做dump备份
+* 第六个字段表示此设备加载前是否做磁盘检查
 
 
 7.挂载并使用磁盘分区 
-mount -a的行为是读取fstab文件，将文件中未挂载的设备挂载上
+`mount -a`的行为是读取fstab文件，将文件中未挂载的设备挂载上
 
 验证磁盘分区及分区信息查看
-df -Th
+`df -Th`
 df查看磁盘挂载信息，-T选项表示显示磁盘的设备类型，-h表示以人性化方式显示磁盘空间
 
 使用光盘永久挂载
+```
 vim /etc/fstab写入
 /dev/sr0    /mnt/cdrom      iso9660  defaults 0 0
 ```
