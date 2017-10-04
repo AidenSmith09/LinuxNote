@@ -36,7 +36,7 @@ nslookup 主机名／ip
 
 ```
 eth0 eth表示以太网卡0表示第一块网卡
-lo0 表示本地回环网卡
+lo0  表示本地回环网卡
 
 设置网络接口ip以及子网掩码
 ifconfig eth0 ip地址 [netmask 子网掩码]
@@ -97,24 +97,24 @@ service network restart
 
 ### RHEL7网卡配置
 
-* nmcli con show                  //查看所有网卡的链接信息
-* nmcli con show eth0         //查看指定网卡链路信息
-* nmcli dev status                //查看所有网卡的物理链路状态
-* nmcli dev show eth0         //查看指定网卡的物理链路状态
+* nmcli con show             //查看所有网卡的链接信息
+* nmcli con show eth0        //查看指定网卡链路信息
+* nmcli dev status           //查看所有网卡的物理链路状态
+* nmcli dev show eth0        //查看指定网卡的物理链路状态
 
 ```bash
 添加新的网卡链接
 nmcli con add con-name “xxxx" ifname eth0 type ethernet ip4 172.25.0.X/24 gw4 172.25.X.254
-con   表示针对链接做相关操作
-add   表示增加一个新的网卡链接
-con-name 表示网卡的链接名称
-ifname   表示本地的网卡设备名称
-type     表示网卡的类型）
+con   //表示针对链接做相关操作
+add   //表示增加一个新的网卡链接
+con-name //表示网卡的链接名称
+ifname   //表示本地的网卡设备名称
+type     //表示网卡的类型
 
 为现有的网卡链接设置DNS地址
 nmcli con modify “xxxx" ipv4.dns 172.25.254.254
 
-为现有的网卡链接设置新的IP地址（IP1
+为现有的网卡链接设置新的IP地址
 nmcli con modify “xxxx" ipv4.addresses 172.25.0.X+100/24
 
 将新的链接作为网卡的默认加载文件（connection.autoconnect yes = 配置文件中的onboot=yes）
