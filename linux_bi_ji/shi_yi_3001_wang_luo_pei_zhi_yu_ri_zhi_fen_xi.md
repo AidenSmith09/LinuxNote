@@ -130,13 +130,13 @@ nmcli con modify "System eth0" +ipv4.addresses 10.0.0.X/24
 ### 网络信息更改
 
 ```bash
-/etc/hostname   主机名称配置文件 
+/etc/hostname       //主机名称配置文件 
 主机名
 
-/etc/resolv.conf        DNS服务器地址保存位置
+/etc/resolv.conf        //DNS服务器地址保存位置
 nameserver 8.8.8.8
 
-/etc/hosts      主机与IP地址映射记录
+/etc/hosts          //主机与IP地址映射记录
 ip地址    主机名
 ```
 
